@@ -1,6 +1,8 @@
 class CreateUsers < ActiveRecord::Migration[5.1]
   def change
     create_table :users do |t|
+      t.string :email
+      t.string :password_digest
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :gender, null: false
@@ -12,9 +14,9 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :allergies
       t.string :major_diagnostics
       t.text :notes
-      t.decimal :resource_owner_id
 
       t.timestamps
     end
+    add_index :users, :email
   end
 end

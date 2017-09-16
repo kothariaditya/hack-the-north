@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170916161227) do
+ActiveRecord::Schema.define(version: 20170916145349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,26 @@ ActiveRecord::Schema.define(version: 20170916161227) do
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
+  create_table "prescriptions", force: :cascade do |t|
+    t.string "description"
+    t.string "brand_name"
+    t.string "drug_name"
+    t.string "notes"
+    t.bigint "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_id"], name: "index_prescriptions_on_record_id"
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.string "diagnosis"
+    t.string "symptoms"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_records_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -72,5 +92,8 @@ ActiveRecord::Schema.define(version: 20170916161227) do
     t.index ["email"], name: "index_users_on_email"
   end
 
-  add_foreign_key "records", "prescriptions"
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "prescriptions", "records"
+  add_foreign_key "records", "users"
 end

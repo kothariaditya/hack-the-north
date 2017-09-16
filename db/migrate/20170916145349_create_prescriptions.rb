@@ -5,6 +5,7 @@ class CreatePrescriptions < ActiveRecord::Migration[5.1]
       t.string :brand_name
       t.string :drug_name
       t.string :notes
+      t.references :record, foreign_key: true
 
       t.timestamps
     end

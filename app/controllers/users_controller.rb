@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -9,7 +10,23 @@ class UsersController < ApplicationController
     end
   end
 
-  def user_params
+  def read()
+    User.find_by_id(params[:id]).as_json
+  end
+
+  def list()
+    users = User.all.map do |user|
+      user.id
+    end
+
+    render json: users
+  end
+
+  def update()
+    User.update(params[:id], user_params)
+  end
+
+  def user_params()
     params.permit(
       :email,
       :password,

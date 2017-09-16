@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   post 'user', to: 'users#create'
+  get 'user', to: 'users#list'
 
-  use_doorkeeper
+  post 'login', to: 'sessions#create'
 
   get '/', to: 'users#new', as: :root
 

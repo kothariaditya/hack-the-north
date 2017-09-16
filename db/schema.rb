@@ -72,6 +72,5 @@ ActiveRecord::Schema.define(version: 20170916161227) do
     t.index ["email"], name: "index_users_on_email"
   end
 
-  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "records", "prescriptions"
 end

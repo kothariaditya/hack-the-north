@@ -6,22 +6,21 @@
 #
 default: &default
   adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   encoding: unicode
-  # For details on connection pooling, see rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: 5
+  host: localhost
 
 development:
   <<: *default
-  database: hackthenorth-development
+  database: development-htn
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: hackthenorth-test
+  database: test-htn
 
 production:
   <<: *default
-  database: hackthenorth-production
+  database: production-htn

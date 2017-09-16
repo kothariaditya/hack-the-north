@@ -3,7 +3,7 @@ class CreateRecords < ActiveRecord::Migration[5.1]
     create_table :records do |t|
       t.string :diagnosis
       t.string :symptoms
-      t.references :prescription, foreign_key: true
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

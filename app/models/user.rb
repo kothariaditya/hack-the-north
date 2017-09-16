@@ -7,4 +7,5 @@ class User < ApplicationRecord
   validates :email, presence: true
   serialize :major_diagnostics, Array
   serialize :allergies, Array
+  has_many :Records
 end

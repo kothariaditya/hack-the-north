@@ -58,17 +58,19 @@ ActiveRecord::Schema.define(version: 20170916221733) do
     t.string "brand_name"
     t.string "drug_name"
     t.string "notes"
+    t.bigint "record_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["record_id"], name: "index_prescriptions_on_record_id"
   end
 
   create_table "records", force: :cascade do |t|
     t.string "diagnosis"
     t.string "symptoms"
-    t.bigint "prescription_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["prescription_id"], name: "index_records_on_prescription_id"
+    t.index ["user_id"], name: "index_records_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -101,5 +103,6 @@ ActiveRecord::Schema.define(version: 20170916221733) do
 
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "records", "prescriptions"
+  add_foreign_key "prescriptions", "records"
+  add_foreign_key "records", "users"
 end

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :authenticate_user!, only: [:list]
+
   def create
     @user = User.new(user_params)
     if @user.save
@@ -11,12 +13,40 @@ class UsersController < ApplicationController
   end
 
   def read()
-    User.find_by_id(params[:id]).as_json
+    user = User.find(params[:id])
+    puts "user hashid: #{user.hashid}"
+    render json: user.as_json
+  end
+
+  def qrcode()
+    user = User.find(params[:id])
+    user_basic_info = user.as_json(only: [
+      :first_name,
+      :last_name,
+      :birthday,
+      :blood_type,
+      :allergies,
+      :major_diagnostics
+    ])
+    user_basic_info[:id] = user.hashid
+    user_basic_info[:url] = user_info_url(user.hashid)
+    qrcode = RQRCode::QRCode.new(user_basic_info)
+    png = qrcode.as_png(
+      resize_gte_to: false,
+      resize_exactly_to: false,
+      fill: 'white',
+      color: 'black',
+      size: 512,
+      border_modules: 4,
+      module_px_size: 6
+    )
+    send_data png, type: 'image/png', disposition: 'inline'
   end
 
   def list()
+    puts "user: #{current_user.inspect} is trying to read the list"
     users = User.all.map do |user|
-      user.id
+      user.hashid
     end
 
     render json: users

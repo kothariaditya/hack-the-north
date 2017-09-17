@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
 
-  devise_for :users
+  # devise_for :users
   post 'user', to: 'users#create'
   get 'user', to: 'users#list'
+  get 'user/:id', to: 'users#read'
+  get 'user/:id/qrcode', to: 'users#qrcode'
 
-  post 'login', to: 'sessions#create'
+  get 'web/user/:id', to: 'user#info', as: :user_info
 
   get '/', to: 'users#new', as: :root
 

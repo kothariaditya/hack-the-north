@@ -30,6 +30,11 @@ gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 gem 'devise'
+gem 'devise_token_auth'
+gem 'rqrcode'
+gem 'jwt'
+gem 'omniauth'
+gem 'hashid-rails'
 gem 'bcrypt', '~> 3.1.7'
 gem 'doorkeeper'
 

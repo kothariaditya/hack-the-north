@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'user/:id', to: 'users#read'
   get 'user/:id/qrcode', to: 'users#qrcode'
 
-  get 'web/user/:id', to: 'user#info', as: :user_info
+  get 'web/user/:id', to: 'users#info', as: :user_info
 
   get '/', to: 'users#new', as: :root
 

@@ -1,0 +1,38 @@
+<div>
+  <h1> <%= @user.last_name %>, <%= @user.first_name %> </h1>
+  <strong> email: </strong> <%= @user.email || 'Not specified' %> <br />
+  <strong> gender: </strong> <%= @user.gender || 'Not specified' %> <br />
+  <strong> country: </strong> <%= @user.country || 'Not specified' %> <br />
+  <strong> city: </strong> <%= @user.city || 'Not specified' %> <br />
+  <strong> address: </strong> <%= @user.address || 'Not specified' %> <br />
+  <strong> birthday: </strong> <%= @user.birthday || 'Not specified' %> <br />
+  <strong> blood type: </strong> <%= @user.blood_type || 'Not specified' %> <br />
+  <strong> allergies: </strong>
+  <% if @user.allergies.empty? %>
+    <%= 'None' %> <br />
+  <% else %>
+  <ul>
+  <% @user.allergies.each do |item| %>
+    <li> <%= item.to_s %> </li>
+  <% end %>
+  </ul>
+  <% end %>
+  <strong> major diagnostics: </strong>
+  <% if @user.major_diagnostics.empty? %>
+    <%= 'None' %> <br />
+  <% else %>
+  <ul>
+  <% @user.major_diagnostics.each do |item| %>
+    <li> <%= item.to_s %> </li>
+  <% end %>
+  </ul>
+  <% end %>
+  <strong> notes: </strong>
+  <div>
+    <%= @user.notes || 'None' %>
+  </div>
+  <hr />
+  <% @user.Records.each do |record| %>
+    <%= record.to_s %>
+  <% end %>
+</div>
